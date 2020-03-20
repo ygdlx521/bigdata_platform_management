@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.config.productionTip = false
 
+//项目打开，首先走这里，渲染App.vue
 Vue.use(ElementUI);
 new Vue({
   router,
