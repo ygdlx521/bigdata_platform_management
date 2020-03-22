@@ -101,8 +101,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
-                    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-
+                    public void onLogoutSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
+                        resp.setContentType("application/json;charset=utf-8");
+                        PrintWriter writer = resp.getWriter();
+                        RespBean success = RespBean.success("注销成功！");
+                        String s = new ObjectMapper().writeValueAsString(success);
+                        writer.write(s);
+                        writer.flush();
+                        writer.close();
                     }
                 })
                 .permitAll()
