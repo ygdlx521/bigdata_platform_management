@@ -15,6 +15,8 @@
 </template>
 
 <script>
+    import {postkeyValueRequest} from "../utils/api";
+
     export default {
         name: 'Login',
         data() {
@@ -34,7 +36,12 @@
             submitForm() {
                 this.$refs['loginForm'].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        postkeyValueRequest('/doLogin', this.loginForm).then(resp=>{
+                            // 这里已经通过了拦截器，return success.data; 请求失败是 return; 为 null。
+                            if(resp){
+                                alert(JSON.stringify(resp))
+                            }
+                        })
                     } else {
                         console.log('error submit!!');
                         this.$message.error('用户名或者密码没有输入');
