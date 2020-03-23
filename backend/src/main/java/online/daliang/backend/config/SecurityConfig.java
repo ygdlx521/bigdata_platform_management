@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         PrintWriter writer = resp.getWriter();
                         // 把用户对象返回给前端使用
                         User user = (User) authentication.getPrincipal();
+                        user.setPassword(null);
                         RespBean success = RespBean.success("登录成功！", user);
                         String s = new ObjectMapper().writeValueAsString(success);
                         writer.write(s);
