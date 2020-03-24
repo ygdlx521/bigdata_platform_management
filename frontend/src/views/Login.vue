@@ -15,7 +15,8 @@
 </template>
 
 <script>
-    import {postkeyValueRequest} from "../utils/api";
+    // 做成插件后，无需导入
+    // import {postkeyValueRequest} from "../utils/api";
 
     export default {
         name: 'Login',
@@ -36,10 +37,13 @@
             submitForm() {
                 this.$refs['loginForm'].validate((valid) => {
                     if (valid) {
-                        postkeyValueRequest('/doLogin', this.loginForm).then(resp=>{
+                        this.postkeyValueRequest('/doLogin', this.loginForm).then(resp=>{
                             // 这里已经通过了拦截器，return success.data; 请求失败是 return; 为 null。
                             if(resp){
-                                alert(JSON.stringify(resp))
+                                // 保存用户数据
+                                window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
+                                // 页面跳转，push能点击浏览器后退后去，replace不能回退
+                                this.$router.replace('/home')
                             }
                         })
                     } else {

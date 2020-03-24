@@ -21,6 +21,9 @@ axios.interceptors.response.use(success=>{
         Message.error({message:success.data.msg});
         return;
     }
+    if(success.data.msg){
+        Message.success({message: success.data.msg})
+    }
     return success.data;
 }, error => {
     if(error.response.status === 504 || error.response.status === 404){
@@ -60,3 +63,37 @@ export const postkeyValueRequest = (url, params) => {
         }
     })
 };
+
+// 默认传递json的post,put等
+export  const postRequest = (url, params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params
+    })
+};
+
+export  const putRequest = (url, params) => {
+    return axios({
+        method: 'put',
+        url: `${base}${url}`,
+        data: params
+    })
+};
+
+export  const getRequest = (url, params) => {
+    return axios({
+        method: 'get',
+        url: `${base}${url}`,
+        data: params
+    })
+};
+
+export  const deleteRequest = (url, params) => {
+    return axios({
+        method: 'delete',
+        url: `${base}${url}`,
+        data: params
+    })
+};
+
