@@ -15,28 +15,17 @@
         </el-header>
         <el-container>
             <el-aside width="200px">
-                <el-menu
-                        default-active="2"
-                        class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose">
-                    <el-submenu index="1">
+                <el-menu router>
+                    <el-submenu index="1" v-for="(item,index) in this.$router.options.routes" v-if="!item.hidden" :key="index" >
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span>导航一</span>
+                            <span>{{item.name}}</span>
                         </template>
-                        <el-menu-item-group>
-                            <template slot="title">分组一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
-                        </el-menu-item-group>
-                        <el-menu-item-group title="分组2">
-                            <el-menu-item index="1-3">选项3</el-menu-item>
-                        </el-menu-item-group>
-                        <el-submenu index="1-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="1-4-1">选项1</el-menu-item>
-                        </el-submenu>
+<!--                        <el-menu-item index="/test1">选项1</el-menu-item>-->
+<!--                        <el-menu-item index="/test2">选项2</el-menu-item>-->
+                        <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">
+                            {{child.name}}
+                        </el-menu-item>
                     </el-submenu>
                     <el-menu-item index="2">
                         <i class="el-icon-menu"></i>
@@ -52,7 +41,10 @@
                     </el-menu-item>
                 </el-menu>
             </el-aside>
-            <el-main>Main</el-main>
+            <el-main>
+                <!-- 两个 router-view，一个主，一个子页面的，通过router、index.js里边children控制-->
+                <router-view/>
+            </el-main>
         </el-container>
     </el-container>
 </template>
@@ -66,6 +58,12 @@
             }
         },
         methods: {
+            // menuClick(index, indexPath) {
+            //     this.$router.push(index);
+            //     console.log(index);
+            //     console.log(indexPath)
+            // },
+            // 可以自动跳转
             commandHandler(cmd) {
                 if(cmd === 'logout') {
                     this.$confirm('此操作将注登录, 是否继续?', '提示', {
@@ -73,8 +71,8 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.getRequest('/logout')
-                        window.sessionStorage.removeItem('user')
+                        this.getRequest('/logout');
+                        window.sessionStorage.removeItem('user');
                         this.$router.replace('/')
                     }).catch(() => {
                         this.$message({
@@ -99,7 +97,7 @@
     }
     .title{
         font-size: 25px;
-        font-family: 楷体;
+        font-family: 楷体,serif;
         color: white;
     }
     .dropdown{
