@@ -1,6 +1,5 @@
 package online.daliang.backend.model;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,17 +11,17 @@ import java.util.Collection;
  * @author daliang
  */
 public class User implements UserDetails {
-    private String id;
+    private Integer id;
     private String name;
     private String username;
     private String password;
     private Boolean enabled;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
