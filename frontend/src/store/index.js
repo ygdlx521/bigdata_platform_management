@@ -6,11 +6,11 @@ Vue.use(Vuex);
 export default new Vuex.Store(
     {
         state:{
-            routers:[]
+            routes:[]
         },
         mutations:{
-            initRouters(state, data){
-                state.routers = data;
+            initRoutes(state, data){
+                state.routes = data;
             }
         },
         actions:{

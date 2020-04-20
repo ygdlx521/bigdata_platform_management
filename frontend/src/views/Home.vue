@@ -15,10 +15,10 @@
         </el-header>
         <el-container>
             <el-aside width="200px">
-                <el-menu router>
-                    <el-submenu index="1" v-for="(item,index) in this.$router.options.routes" v-if="!item.hidden" :key="index" >
+                <el-menu router unique-opened>
+                    <el-submenu :index="index+''" v-for="(item,index) in routes" v-if="!item.hidden" :key="index" >
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i style="color: #3a8ee6;margin-right: 6px" :class="item.iconCls"></i>
                             <span>{{item.name}}</span>
                         </template>
 <!--                        <el-menu-item index="/test1">选项1</el-menu-item>-->
@@ -27,18 +27,6 @@
                             {{child.name}}
                         </el-menu-item>
                     </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span slot="title">导航三</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
                 </el-menu>
             </el-aside>
             <el-main>
@@ -57,6 +45,11 @@
                 user:JSON.parse(window.sessionStorage.getItem('user'))
             }
         },
+        computed: {
+            routes(){
+                return this.$store.state.routes;
+            }
+        },
         methods: {
             // menuClick(index, indexPath) {
             //     this.$router.push(index);
@@ -73,6 +66,7 @@
                     }).then(() => {
                         this.getRequest('/logout');
                         window.sessionStorage.removeItem('user');
+                        this.$store.commit('initRoutes',[]);
                         this.$router.replace('/')
                     }).catch(() => {
                         this.$message({

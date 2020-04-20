@@ -6,6 +6,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import {postkeyValueRequest, postRequest, putRequest, deleteRequest, getRequest} from "./utils/api";
+import {initMenu} from "./utils/menus";
+import 'font-awesome/css/font-awesome.min.css'
 
 
 Vue.config.productionTip = false
@@ -17,6 +19,19 @@ Vue.prototype.postRequest = postRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.getRequest = getRequest;
+
+/*
+导航守卫
+ */
+router.beforeEach((to, from, next) => {
+  if (to.path === '/') {
+    next();
+  }else {
+    initMenu(router, store);
+    next();
+  }
+});
+
 
 //项目打开，首先走这里，渲染App.vue
 Vue.use(ElementUI);
