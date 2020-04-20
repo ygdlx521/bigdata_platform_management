@@ -21,7 +21,7 @@ Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.getRequest = getRequest;
 
 /*
-导航守卫
+前置路由导航守卫
  */
 router.beforeEach((to, from, next) => {
   if (to.path === '/') {
