@@ -8,6 +8,7 @@ import Test2 from "../views/Test2";
 Vue.use(VueRouter);
 /*
 在这里引用进来的vue 页面才可以用。
+在状态管理工具 vuex 里边各vue组件可以进行数据共享，安全。比如把菜单接口返回的数据保存在内。
  */
 const routes = [
   //  从router.js那边走到这里，默认path是/，所以渲染Login这个组件.
