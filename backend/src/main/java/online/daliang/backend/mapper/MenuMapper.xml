@@ -17,6 +17,27 @@
             <result column="requireAuth" property="requireAuth" jdbcType="BIT" />
         </association>
     </resultMap>
+
+    <resultMap id="MenuWithRole" type="online.daliang.backend.model.Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="online.daliang.backend.model.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnameZh" property="nameZh"/>
+        </collection>
+    </resultMap>
+    <select id="getAllMenusWithRole" resultMap="MenuWithRole">
+        select
+            m.*,
+            r.id as rid,
+            r.name as rname,
+            r.nameZh as rnameZh
+        from
+        menu m
+        left outer join menu_role mr on m.id = mr.mid
+        left outer join role r on mr.rid = r.id
+        order by m.id
+    </select>
+
     <resultMap id="Menus2" type="online.daliang.backend.model.Menu" extends="BaseResultMap">
         <collection property="children" ofType="online.daliang.backend.model.Menu">
             <id column="id2" property="id" jdbcType="INTEGER" />
