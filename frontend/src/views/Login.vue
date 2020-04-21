@@ -43,7 +43,9 @@
                                 // 保存用户数据
                                 window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
                                 // 页面跳转，push能点击浏览器后退后去，replace不能回退
-                                this.$router.replace('/home')
+                                // this.$router.replace('/home')
+                                let path = this.$route.query.redirect;
+                                this.$router.replace((path === '/' || path === undefined) ? '/home' : path);
                             }
                         })
                     } else {

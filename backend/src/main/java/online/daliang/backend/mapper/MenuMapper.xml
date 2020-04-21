@@ -69,7 +69,7 @@
             m2.enabled as enabled2
         from menu m1
         left outer join menu m2 on m1.id = m2.parentId
-        left outer join menu_role mr on m1.id = mr.mid
+        left outer join menu_role mr on m2.id = mr.mid
         left outer join  user_role ur on mr.rid = ur.rid
         where ur.id = #{userId}
         order by ur.id
